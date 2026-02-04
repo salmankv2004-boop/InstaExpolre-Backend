@@ -15,9 +15,20 @@ import { app, server } from "./utils/socket.js";
 
 
 /* 🌐 CORS */
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://insta-explore-frontend.vercel.app"
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
