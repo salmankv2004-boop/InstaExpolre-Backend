@@ -53,7 +53,7 @@ export const sendMessage = async (req, res) => {
             recipient: receiverId,
             sender: senderId,
             type: "message",
-            content: sharedPostId ? "Sent a post" : imageUrl ? "Sent an image" : content,
+            content: content || (imageUrl ? "Sent an image" : sharedPostId ? "Sent a post" : "Sent a message"),
         });
 
         const populatedNotification = await notification.populate("sender", "username avatar");
