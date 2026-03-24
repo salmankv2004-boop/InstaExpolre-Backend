@@ -52,6 +52,15 @@ app.use("/api/activity", activityRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/notifications", notificationRoutes);
 
+/* 🚨 GLOBAL ERROR HANDLER */
+app.use((err, req, res, next) => {
+  console.error("🔥 GLOBAL ERROR:", err);
+  res.status(500).json({ 
+    message: "Internal Server Error", 
+    error: err.message 
+  });
+});
+
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {

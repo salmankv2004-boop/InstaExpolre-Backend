@@ -11,6 +11,9 @@ cloudinary.config({
 /* 🔥 Upload buffer to Cloudinary */
 export const uploadToCloudinary = (buffer, folder) => {
   return new Promise((resolve, reject) => {
+    if (!buffer) {
+      return reject(new Error("Image buffer is undefined - file processing failed."));
+    }
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         folder,
