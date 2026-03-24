@@ -55,9 +55,10 @@ app.use("/api/notifications", notificationRoutes);
 /* 🚨 GLOBAL ERROR HANDLER */
 app.use((err, req, res, next) => {
   console.error("🔥 GLOBAL ERROR:", err);
+  // Send err.message as the primary 'message' so the frontend toast shows the actual reason
   res.status(500).json({ 
-    message: "Internal Server Error", 
-    error: err.message 
+    message: err.message || "Internal Server Error", 
+    error: err.stack 
   });
 });
 
