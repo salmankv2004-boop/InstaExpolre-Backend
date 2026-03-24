@@ -58,3 +58,15 @@ server.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
 
+/* 🛡️ PORT CONFLICT HANDLER */
+server.on("error", (err) => {
+  if (err.code === "EADDRINUSE") {
+    console.error(`\n❌ Port ${PORT} is already in use!`);
+    console.error(`👉 Fix: Run this command to free the port:`);
+    console.error(`   netstat -ano | findstr :${PORT}   →  then:  taskkill /PID <PID> /F\n`);
+    process.exit(1);
+  } else {
+    throw err;
+  }
+});
+
